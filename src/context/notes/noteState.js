@@ -11,7 +11,7 @@ const NoteState = (props) => {
       method:'GET',
       headers: {
         'Content-Type':'application/json',
-        'Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZmE3MGY5MDVlMmJiY2ExNGJmMjUwNSIsIm5hbWUiOiJIYXJzaCIsImlhdCI6MTc0NDQ2NzQ5Nn0.se8coW_wGXGbkrh-WjP1CpbGkh6jq7CX89vqW8hfWxE'
+        'Authorization':`Bearer ${localStorage.getItem('token')}`
       }
     })
     const json=await response.json();
@@ -25,7 +25,7 @@ const NoteState = (props) => {
       method:'POST',
       headers: {
         'Content-Type':'application/json',
-        'Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZmE3MGY5MDVlMmJiY2ExNGJmMjUwNSIsIm5hbWUiOiJIYXJzaCIsImlhdCI6MTc0NDQ2NzQ5Nn0.se8coW_wGXGbkrh-WjP1CpbGkh6jq7CX89vqW8hfWxE'
+        'Authorization':`Bearer ${localStorage.getItem('token')}`
       },                                                          //'Content-Type': 'application/json' tells the server you're sending JSON data.
                                                                   //'Authorization': 'Bearer <token>' sends a JWT token to authenticate the user
       body:JSON.stringify({title,description,tag})
@@ -46,7 +46,7 @@ const NoteState = (props) => {
       method:'DELETE',
       headers: {
         'Content-Type':'application/json',
-        'Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZmE3MGY5MDVlMmJiY2ExNGJmMjUwNSIsIm5hbWUiOiJIYXJzaCIsImlhdCI6MTc0NDQ2NzQ5Nn0.se8coW_wGXGbkrh-WjP1CpbGkh6jq7CX89vqW8hfWxE'
+        'Authorization':`Bearer ${localStorage.getItem('token')}`
       }
     })
     const json=await response.json();
@@ -61,7 +61,7 @@ const NoteState = (props) => {
       method:'PUT',
       headers: {
         'Content-Type':'application/json',
-        'Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZmE3MGY5MDVlMmJiY2ExNGJmMjUwNSIsIm5hbWUiOiJIYXJzaCIsImlhdCI6MTc0NDQ2NzQ5Nn0.se8coW_wGXGbkrh-WjP1CpbGkh6jq7CX89vqW8hfWxE'
+        'Authorization':`Bearer ${localStorage.getItem('token')}`
       },
       body:JSON.stringify({title,description,tag})
     })

@@ -14,17 +14,19 @@ import Login from './components/Login';
 
 function App() {
   return (
-    <NoteState>
+    
       <Router>
+        <NoteState>
         <Navbar/>
         <Routes>
-          <Route exact path="/" element={<Home/>}/>
-          <Route exact path="/about" element={<About/>}/>
           <Route exact path="/login" element={<Login/>}/>
           <Route exact path="/signUp" element={<SignUp/>}/>
+          <Route exact path="/" element={<Home/>}/>
+          <Route exact path="/about" element={<About/>}/>
         </Routes>
+        </NoteState>
       </Router>
-    </NoteState>
+    
   );
 }
 
