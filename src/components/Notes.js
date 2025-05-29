@@ -3,8 +3,10 @@ import noteContext from '../context/notes/noteContext'
 import Noteitem from './Noteitem'
 import AddNotes from './AddNotes'
 import { useNavigate } from 'react-router-dom'
+import alertContext from '../context/alert/alertContext'
 
 const Notes = () => {
+    const { showAlert } = useContext(alertContext);
     const context=useContext(noteContext)
     const {notes,getNote,editNote} = context
   let navigate=useNavigate()
@@ -25,11 +27,13 @@ const Notes = () => {
   const updateNote=(currentNote)=>{
     refOpen.current.click();
     setNote({id:currentNote._id,etitle:currentNote.title,edescription:currentNote.description,etag:currentNote.tag})
+
   }
 
   const handleClick=(e)=>{
       editNote(note.id,note.etitle,note.edescription,note.etag)
       refClose.current.click();
+      showAlert("Updated successfully","success")
   }
   
   const onChange=(e)=>{

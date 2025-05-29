@@ -1,7 +1,9 @@
-import React,{useState} from 'react'    
+import React,{useState,useContext} from 'react'    
 import { useNavigate } from 'react-router-dom'
+import alertContext from '../context/alert/alertContext';
 
 const SignUp = () => {
+    const { showAlert } = useContext(alertContext);
     const [credentials,setCredentials]=useState({name:"",email:"",password:"",cpassword:""})
     let navigate=useNavigate();
 
@@ -24,6 +26,7 @@ const SignUp = () => {
         console.log(json)
         if(json.success){
             localStorage.setItem('token',json.token)
+            showAlert("Account created successfully", "success");
             navigate("/")
         }
         else{
@@ -35,7 +38,8 @@ const SignUp = () => {
         setCredentials({...credentials, [e.target.name]:e.target.value})
     }
   return (
-    <div className='container'>
+    <div className='container mt-4'>
+        <h1 className="my-3">Create an account to use iNoteBook</h1>
         <form onSubmit={handleSubmit}>
             <div className="mb-3">
                 <label htmlFor="name" className="form-label">Name</label>

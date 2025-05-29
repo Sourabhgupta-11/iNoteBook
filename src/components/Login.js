@@ -1,7 +1,9 @@
-import React,{useState} from 'react'
+import React,{useState, useContext} from 'react'
 import { useNavigate } from 'react-router-dom'
+import alertContext from "../context/alert/alertContext";
 
 const Login = () => {
+    const { showAlert } = useContext(alertContext);
     const [credentials,setCredentials]=useState({email:"",password:""})
     let navigate=useNavigate();
 
@@ -18,10 +20,11 @@ const Login = () => {
         console.log(json)
         if(json.success){
             localStorage.setItem('token',json.token)
+            showAlert("Logged in successfully!", "success");
             navigate("/")
         }
         else{
-            alert("Invalid credentials")
+            showAlert("Invalid credentials", "danger");
         }
     }
 
@@ -29,7 +32,9 @@ const Login = () => {
         setCredentials({...credentials, [e.target.name]:e.target.value})
     }
   return (
-    <div className='container'>
+    <>
+    <div className='container mt-4'>
+    <h1 className="my-3">Login to continue to iNoteBook</h1>
         <form onSubmit={handleSubmit}>
             <div className="mb-3">
                 <label htmlFor="email" className="form-label">Email address</label>
@@ -43,6 +48,7 @@ const Login = () => {
             <button type="submit" className="btn btn-primary">Submit</button>
         </form>
     </div>
+    </>
   )
 }
 
