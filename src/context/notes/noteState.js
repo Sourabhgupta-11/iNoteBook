@@ -19,6 +19,19 @@ const NoteState = (props) => {
     setNotes(json)
   }
 
+  //----------------------GET NOTES BY TAG----------------------------------//
+  const getNotesByTag = async (tag) => {
+  const response = await fetch(`${host}/api/notes/bytag/${tag}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    }
+  });
+  const json = await response.json();
+  setNotes(json);
+  };
+
   //----------------------ADD NOTES----------------------------------//
   const addNote=async (title,description,tag)=>{
     const response=await fetch(`${host}/api/notes/addNote`,{       //Sends a network request to your backend.
@@ -81,7 +94,7 @@ const NoteState = (props) => {
   }
 
   return (
-    <noteContext.Provider value={{notes,addNote,deleteNote,editNote,getNote}}>
+    <noteContext.Provider value={{notes,addNote,deleteNote,editNote,getNote,getNotesByTag}}>
         {props.children}
     </noteContext.Provider>
   )

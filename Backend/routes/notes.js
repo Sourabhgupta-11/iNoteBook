@@ -37,6 +37,18 @@ router.get('/',jwtAuthMiddleware,async (req,res) =>{
     }
 })
 
+// routes/notes.js
+router.get('/bytag/:tag', jwtAuthMiddleware, async (req, res) => {
+  try {
+    const tagRegex = new RegExp(`^${req.params.tag}$`, 'i'); // case-insensitive
+    const notes = await Notes.find({ user: req.user.id, tag: tagRegex });
+    res.json(notes);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 router.put('/updateNote/:id',jwtAuthMiddleware, async (req,res)=>{
     try{
     const noteId=req.params.id;

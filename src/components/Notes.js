@@ -6,9 +6,11 @@ import { useNavigate } from 'react-router-dom'
 import alertContext from '../context/alert/alertContext'
 
 const Notes = () => {
-    const { showAlert } = useContext(alertContext);
-    const context=useContext(noteContext)
-    const {notes,getNote,editNote} = context
+  const { showAlert } = useContext(alertContext);
+  const context=useContext(noteContext)
+  const {notes,getNote,editNote,getNotesByTag} = context
+  const [uniqueTags, setUniqueTags] = useState([]);
+
   let navigate=useNavigate()
   useEffect(()=>{
     if(localStorage.getItem('token')){
@@ -19,6 +21,12 @@ const Notes = () => {
     }
     // eslint-disable-next-line
   },[])
+
+  useEffect(() => {
+    const tags = [...new Set(notes.map(note => note.tag.trim()))];
+    setUniqueTags(tags.filter(tag => tag));
+  }, [notes]);
+
   const refOpen=useRef(null)
   const refClose = useRef(null);
 
@@ -39,6 +47,15 @@ const Notes = () => {
   const onChange=(e)=>{
       setNote({...note, [e.target.name]:e.target.value})
   }
+
+    const handleFilterChange = (e) => {
+    const selectedTag = e.target.value;
+    if (selectedTag === "all") {
+      getNote();
+    } else {
+      getNotesByTag(selectedTag);
+    }
+  };
 
   return (
     <>
@@ -76,14 +93,25 @@ const Notes = () => {
         </div>
       </div>
     </div>
+
+    <div className="container">
+      <label htmlFor="tagFilter" className="form-label">Filter by Tag:</label>
+      <select className="form-select w-25 mb-3" onChange={handleFilterChange}>
+        <option value="all">All</option>
+        {uniqueTags.map((tag, index) => (
+          <option key={index} value={tag}>{tag}</option>
+        ))}
+      </select>
+    </div>
+
     <div className="container my-3">
-        <h2>Your Notes</h2>
-        <div className='container'>
+        <h2 className='mb-3'>Your Notes</h2>
+        <div className='row'>
           {notes.length===0 && 'No notes to display'}
-        </div>
-        {notes.map((note)=>{
+          {notes.map((note)=>{
             return <Noteitem key={note._id} updateNote={updateNote} note={note}/>
-        })}
+          })}
+        </div>
     </div>
     </>
   )
