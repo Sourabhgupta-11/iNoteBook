@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaUserCircle } from 'react-icons/fa';
 
 const Navbar = () => {
+  const REACT_URL=process.env.REACT_APP_BASE_URL
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -36,7 +37,7 @@ const Navbar = () => {
         setLoading(false);
         return;
       }
-      const response = await fetch('http://localhost:5000/api/auth/profile', {
+      const response = await fetch(`${REACT_URL}/api/auth/profile`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import alertContext from '../context/alert/alertContext';
 
 const SignUp = () => {
+    const REACT_URL=process.env.REACT_APP_BASE_URL
     const { showAlert } = useContext(alertContext);
     const [credentials,setCredentials]=useState({name:"",email:"",password:"",cpassword:""})
     let navigate=useNavigate();
@@ -15,7 +16,7 @@ const SignUp = () => {
             alert("Passwords do not match");
             return;  // Stop submission
         }
-        const response=await fetch(`http://localhost:5000/api/auth/signup`,{
+        const response=await fetch(`${REACT_URL}/api/auth/signup`,{
             method:'POST',
             headers: {
               'Content-Type':'application/json',

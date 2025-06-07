@@ -3,13 +3,14 @@ import { useNavigate } from 'react-router-dom'
 import alertContext from "../context/alert/alertContext";
 
 const Login = () => {
+    const REACT_URL=process.env.REACT_APP_BASE_URL
     const { showAlert } = useContext(alertContext);
     const [credentials,setCredentials]=useState({email:"",password:""})
     let navigate=useNavigate();
 
     const handleSubmit=async (e)=>{
         e.preventDefault();
-        const response=await fetch(`http://localhost:5000/api/auth/login/`,{
+        const response=await fetch(`${REACT_URL}/api/auth/login/`,{
             method:'POST',
             headers: {
               'Content-Type':'application/json',
