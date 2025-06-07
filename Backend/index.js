@@ -9,7 +9,7 @@ const port = process.env.PORT|| 4000
 const bodyparser=require('body-parser')
 app.use(bodyparser.json())
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3001'],
+  origin: ['http://localhost:3000', 'http://localhost:3001','https://i-note-book-lime.vercel.app'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
