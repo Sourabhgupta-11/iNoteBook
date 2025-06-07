@@ -1,28 +1,23 @@
-const mongoose = require('mongoose');
+const mongoose=require('mongoose');
 require('dotenv').config();
+//const mongoURL ="mongodb://127.0.0.1:27017/iNotebook"; //#Local mongodb url
+const mongoURL=process.env.MONGODB_URL
 
-const mongoURL = process.env.MONGODB_URL; 
-
-if (!mongoURL) {
-  console.error('❌ MONGO_URI not set in environment variables');
-  process.exit(1); 
-}
-
-mongoose.connect(mongoURL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => {
-  console.log('✅ Connected to MongoDB');
-})
-.catch((err) => {
-  console.error('❌ MongoDB connection error:', err);
-});
+mongoose.connect(mongoURL)
 
 const db = mongoose.connection;
 
-db.on('disconnected', () => {
-  console.log('⚠️ Disconnected from MongoDB');
+db.on('connected', () => {
+  console.log('Connected to MongoDB');
 });
 
-module.exports = db;
+db.on('disconnected', () => {
+  console.log('Disconnected from MongoDB');
+});
+
+db.on('error', (err) => {
+  console.log('Error opening MongoDB connection:', err);
+});
+
+
+module.exports=db;
