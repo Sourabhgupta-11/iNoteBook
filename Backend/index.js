@@ -8,7 +8,11 @@ const port = process.env.PORT|| 4000
 
 const bodyparser=require('body-parser')
 app.use(bodyparser.json())
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:3000', 'http://localhost:3001'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
 
 const userRoutes=require('./routes/auth.js')
 const notesRoutes=require('./routes/notes.js')
