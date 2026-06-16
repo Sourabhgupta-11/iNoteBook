@@ -23,6 +23,7 @@ const Login = () => {
       const json = await res.json();
       if (json.success) {
         localStorage.setItem('token', json.token);
+        window.dispatchEvent(new Event('storage'));
         showAlert("Logged in successfully!", "success");
         navigate("/");
       } else {

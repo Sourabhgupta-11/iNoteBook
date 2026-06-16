@@ -8,7 +8,7 @@ import './Notes.css';
 const TAGS = ['All', 'Personal', 'Work', 'Ideas', 'Todo', 'Important', 'General'];
 
 const Notes = () => {
-  const { notes, getNotes, editNote } = useContext(noteContext);
+  const { notes, getNote, editNote } = useContext(noteContext);
   const { showAlert }                 = useContext(alertContext);
 
   const [eNote,    setENote]    = useState({ id: '', etitle: '', edescription: '', etag: '' });
@@ -20,7 +20,7 @@ const Notes = () => {
   const modalRef = useRef(null);
 
   useEffect(() => {
-    getNotes().finally(() => setLoading(false));
+    getNote().finally(() => setLoading(false));
     // eslint-disable-next-line
   }, []);
 

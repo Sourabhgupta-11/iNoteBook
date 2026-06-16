@@ -13,6 +13,8 @@ const Home = () => {
     if (!isLoggedIn) navigate('/login');
   }, [isLoggedIn, navigate]);
 
+  if (!isLoggedIn) return null; 
+  
   return (
     <div className="page-wrap">
       {/* Page header */}

@@ -30,6 +30,7 @@ const SignUp = () => {
       const json = await res.json();
       if (json.success) {
         localStorage.setItem('token', json.token);
+        window.dispatchEvent(new Event('storage'));
         showAlert("Account created successfully!", "success");
         navigate("/");
       } else {

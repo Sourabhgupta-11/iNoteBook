@@ -14,8 +14,16 @@ const Navbar = () => {
   const [menuOpen,    setMenuOpen]    = useState(false);
   const sidebarRef = useRef(null);
 
-  const isLoggedIn = !!localStorage.getItem('token');
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
 
+  useEffect(() => {
+    const check = () => setIsLoggedIn(!!localStorage.getItem('token'));
+    window.addEventListener('storage', check);
+    // also re-check on every location change
+    check();
+    return () => window.removeEventListener('storage', check);
+  }, [location]);
+  
   useEffect(() => {
     const handleKey = (e) => { if (e.key === 'Escape') { setShowSidebar(false); setMenuOpen(false); } };
     window.addEventListener('keydown', handleKey);
