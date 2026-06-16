@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FaUserCircle, FiLogOut, FiHome, FiX } from 'react-icons/fa';
+import { FaUserCircle } from 'react-icons/fa';
 import './Navbar.css';
 
 const Navbar = () => {
